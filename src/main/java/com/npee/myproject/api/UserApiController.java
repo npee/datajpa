@@ -44,7 +44,7 @@ public class UserApiController {
     }
 
     @ApiOperation(value = "회원 삭제", notes = "회원 삭제")
-    @DeleteMapping("/v2/users/{id}")
+    @DeleteMapping("/1/users/{id}")
     public CommonResult deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return responseService.getSuccessResult();
