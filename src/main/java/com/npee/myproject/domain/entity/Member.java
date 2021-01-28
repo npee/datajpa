@@ -1,15 +1,13 @@
 package com.npee.myproject.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(of = {"id", "username", "age"})
 public class Member {
 
     @Id @GeneratedValue
@@ -26,7 +24,8 @@ public class Member {
         this.username = username;
     }
 
-    public void changeUsername(String username) {
-        this.username = username;
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
     }
 }
