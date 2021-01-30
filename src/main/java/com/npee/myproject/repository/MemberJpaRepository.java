@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class MemberJpaRepository {
@@ -20,6 +21,11 @@ public class MemberJpaRepository {
 
     public Member find(Long id) {
         return em.find(Member.class, id);
+    }
+
+    public Optional<Member> findById(Long id) {
+        Member member = em.find(Member.class, id);
+        return Optional.ofNullable(member);
     }
 
     public void delete(Member member) {
