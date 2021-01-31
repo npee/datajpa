@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-// @Rollback(false) // 쿼리 확인
+@Rollback(false) // 쿼리 확인
 class MemberJpaRepositoryTest {
 
     @Autowired
@@ -51,17 +51,19 @@ class MemberJpaRepositoryTest {
         assertThat(findMember1).isEqualTo(member1);
         assertThat(findMember2).isEqualTo(member2);
 
+        member1.setUsername("member3"); // Transaction 내에 있으므로 변경 감지 일어남
+
         List<Member> all = memberJpaRepository.findAll();
         assertThat(all.size()).isEqualTo(2L);
 
         long count = memberJpaRepository.count();
         assertThat(count).isEqualTo(2L);
 
-        memberJpaRepository.delete(member1);
-        memberJpaRepository.delete(member2);
-
-        long resCount = memberJpaRepository.count();
-        assertThat(resCount).isEqualTo(0L);
+//        memberJpaRepository.delete(member1);
+//        memberJpaRepository.delete(member2);
+//
+//        long resCount = memberJpaRepository.count();
+//        assertThat(resCount).isEqualTo(0L);
     }
 
 
