@@ -54,11 +54,14 @@ class MemberJpaRepositoryTest {
         List<Member> all = memberJpaRepository.findAll();
         assertThat(all.size()).isEqualTo(2L);
 
+        long count = memberJpaRepository.count();
+        assertThat(count).isEqualTo(2L);
+
         memberJpaRepository.delete(member1);
         memberJpaRepository.delete(member2);
 
-        long count = memberJpaRepository.count();
-        assertThat(count).isEqualTo(0L);
+        long resCount = memberJpaRepository.count();
+        assertThat(resCount).isEqualTo(0L);
     }
 
 
