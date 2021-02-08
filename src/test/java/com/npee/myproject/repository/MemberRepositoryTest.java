@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -141,5 +143,21 @@ class MemberRepositoryTest {
         assertThat(memberTeam.get(0).getId()).isEqualTo(m1.getId());
         assertThat(memberTeam.get(0).getUsername()).isEqualTo(m1.getUsername());
         assertThat(memberTeam.get(0).getTeamName()).isEqualTo(t1.getName());
+    }
+
+    @Test
+    void findByNamesTest() {
+        Member m1 = new Member("AAA", 10, null);
+        Member m2 = new Member("BBB", 20, null);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        String[] namesArray = {"AAA", "BBB"};
+        List<String> namesList = Arrays.asList(namesArray);
+
+        List<Member> result = memberRepository.findByNames(namesList);
+        assertThat(result.size()).isEqualTo(2);
+        assertThat(result.get(0).getUsername()).isEqualTo("AAA");
+        assertThat(result.get(1).getUsername()).isEqualTo("BBB");
     }
 }

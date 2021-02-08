@@ -22,4 +22,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select new com.npee.myproject.domain.entity.dto.MemberTeamDto(m.id, m.username, t.name) from Member m join m.team t ")
     List<MemberTeamDto> findMemberTeam();
+
+    @Query("select m from Member m where m.username in :names")
+    List<Member> findByNames(@Param("names") List<String> names);
 }
