@@ -152,8 +152,7 @@ class MemberRepositoryTest {
         memberRepository.save(m1);
         memberRepository.save(m2);
 
-        String[] namesArray = {"AAA", "BBB"};
-        List<String> namesList = Arrays.asList(namesArray);
+        List<String> namesList = Arrays.asList("AAA", "BBB");
 
         List<Member> result = memberRepository.findByNames(namesList);
         assertThat(result.size()).isEqualTo(2);
