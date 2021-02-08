@@ -1,6 +1,8 @@
 package com.npee.myproject.repository;
 
 import com.npee.myproject.domain.entity.Member;
+import com.npee.myproject.domain.entity.Team;
+import com.npee.myproject.domain.entity.dto.MemberTeamDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ class MemberRepositoryTest {
 
     @Autowired
     MemberRepository memberRepository;
+
+    @Autowired
+    TeamRepository teamRepository;
 
     @Test
     public void testMember() {
@@ -116,7 +121,25 @@ class MemberRepositoryTest {
         List<String> result = memberRepository.findUsernameList();
         assertThat(result.get(0)).isEqualTo("AAA");
         assertThat(result.get(1)).isEqualTo("BBB");
-
     }
 
+    @Test
+    void findMemberTeamDto() {
+        Member m1 = new Member("AAA", 10, null);
+        Team t1 = new Team("TeamA");
+        m1.setTeam(t1);
+        Member m2 = new Member("BBB", 20, null);
+        Team t2 = new Team("TeamB");
+        m2.setTeam(t2);
+        memberRepository.save(m1);
+        teamRepository.save(t1);
+        memberRepository.save(m2);
+        teamRepository.save(t2);
+
+        List<MemberTeamDto> memberTeam = memberRepository.findMemberTeam();
+
+        assertThat(memberTeam.get(0).getId()).isEqualTo(m1.getId());
+        assertThat(memberTeam.get(0).getUsername()).isEqualTo(m1.getUsername());
+        assertThat(memberTeam.get(0).getTeamName()).isEqualTo(t1.getName());
+    }
 }

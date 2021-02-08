@@ -1,6 +1,7 @@
 package com.npee.myproject.repository;
 
 import com.npee.myproject.domain.entity.Member;
+import com.npee.myproject.domain.entity.dto.MemberTeamDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +19,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m.username from Member m")
     List<String> findUsernameList();
+
+    @Query("select new com.npee.myproject.domain.entity.dto.MemberTeamDto(m.id, m.username, t.name) from Member m join m.team t ")
+    List<MemberTeamDto> findMemberTeam();
 }
