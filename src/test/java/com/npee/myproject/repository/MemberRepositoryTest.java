@@ -94,4 +94,16 @@ class MemberRepositoryTest {
         assertThat(findMember).isEqualTo(m1);
     }
 
+    @Test
+    void namedQueryAnnotationTest() {
+        Member m1 = new Member("AAA", 10, null);
+        Member m2 = new Member("BBB", 20, null);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        List<Member> result = memberRepository.findUser("AAA", 10);
+        Member findMember = result.get(0);
+        assertThat(findMember).isEqualTo(m1);
+    }
+
 }
