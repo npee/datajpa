@@ -159,4 +159,20 @@ class MemberRepositoryTest {
         assertThat(result.get(0).getUsername()).isEqualTo("AAA");
         assertThat(result.get(1).getUsername()).isEqualTo("BBB");
     }
+
+    @Test
+    void returnTest() {
+        Member m1 = new Member("AAA", 10, null);
+        Member m2 = new Member("BBB", 20, null);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        List<Member> list = memberRepository.findListByUsername("AAA");
+        Member member = memberRepository.findMemberByUsername("BBB");
+        Optional<Member> optional = memberRepository.findOptionalByUsername("AAA");
+
+        assertThat(list.get(0)).isEqualTo(m1);
+        assertThat(member).isEqualTo(m2);
+        assertThat(optional.get()).isEqualTo(m1);
+    }
 }
