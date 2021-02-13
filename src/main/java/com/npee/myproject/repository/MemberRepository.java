@@ -2,6 +2,8 @@ package com.npee.myproject.repository;
 
 import com.npee.myproject.domain.entity.Member;
 import com.npee.myproject.domain.entity.dto.MemberTeamDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,4 +32,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findListByUsername(String username);
     Member findMemberByUsername(String username);
     Optional<Member> findOptionalByUsername(String username);
+
+    Page<Member> findByAge(int age, Pageable pageable);
 }
