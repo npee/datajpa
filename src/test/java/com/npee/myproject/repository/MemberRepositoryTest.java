@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
@@ -204,4 +205,32 @@ class MemberRepositoryTest {
         assertThat(page.hasNext()).isTrue();
 
     }
+
+    @Test
+    public void slicing() {
+        // List/Page/Slice 반환 타입에 따라 쿼리가 결정된다.
+        // given
+        for (int i = 1; i <= 5; i++) {
+            memberRepository.save(new Member("member" + i, 10, null));
+        }
+
+        int age = 10;
+        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "username"));
+
+        // when
+        Slice<Member> slice = memberRepository.getByAge(age, pageRequest);
+
+        // then
+        List<Member> content = slice.getContent();
+        // long totalElements = slice.getTotalElements();
+
+        assertThat(content.size()).isEqualTo(3);
+        // assertThat(totalElements).isEqualTo(5);
+        // assertThat(slice.getTotalPages()).isEqualTo(2);
+        assertThat(slice.getNumber()).isEqualTo(0);
+        assertThat(slice.isFirst()).isTrue();
+        assertThat(slice.hasNext()).isTrue();
+
+    }
+
 }
