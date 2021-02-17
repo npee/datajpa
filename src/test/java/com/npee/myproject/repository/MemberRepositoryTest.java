@@ -247,6 +247,11 @@ class MemberRepositoryTest {
         // when
         int resultCount = memberRepository.bulkAgePlus(20);
 
+        List<Member> members = memberRepository.findAll();
+        for (Member member : members) {
+            System.out.println("member.getAge = " + member.getAge());
+        }
+
         // then
         assertThat(resultCount).isEqualTo(3);
     }

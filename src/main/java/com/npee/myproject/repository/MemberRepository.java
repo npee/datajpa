@@ -39,7 +39,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Page<Member> findByAge(int age, Pageable pageable);
     Slice<Member> getByAge(int age, Pageable pageable);
 
-    @Modifying // executeUpdate 수행 애너테이션
+    @Modifying(clearAutomatically = true) // executeUpdate 수행 애너테이션
     @Query("update Member m set m.age = m.age + 1 where m.age >= :age")
     int bulkAgePlus(@Param("age") int age);
 }
