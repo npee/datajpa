@@ -235,4 +235,20 @@ class MemberRepositoryTest {
 
     }
 
+    @Test
+    public void bulkUpdate() {
+        // given
+        memberRepository.save(new Member("member1", 16, null));
+        memberRepository.save(new Member("member2", 19, null));
+        memberRepository.save(new Member("member3", 20, null));
+        memberRepository.save(new Member("member4", 21, null));
+        memberRepository.save(new Member("member5", 25, null));
+
+        // when
+        int resultCount = memberRepository.bulkAgePlus(20);
+
+        // then
+        assertThat(resultCount).isEqualTo(3);
+    }
+
 }
