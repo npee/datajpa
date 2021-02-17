@@ -24,6 +24,9 @@ class MemberJpaRepositoryTest {
     @Autowired
     MemberJpaRepository memberJpaRepository;
 
+    @PersistenceContext
+    EntityManager em;
+
     @Test
     public void testMember() {
         System.out.println("memberJpaRepository = " + memberJpaRepository.count());
@@ -129,6 +132,8 @@ class MemberJpaRepositoryTest {
 
         // when
         int resultCount = memberJpaRepository.bulkAgePlus(20);
+        em.flush();
+        em.clear();
 
         List<Member> members = memberJpaRepository.findAll();
         for (Member member : members) {
