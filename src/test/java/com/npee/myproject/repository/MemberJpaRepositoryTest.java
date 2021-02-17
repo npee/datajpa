@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -120,13 +122,18 @@ class MemberJpaRepositoryTest {
     public void bulkUpdate() {
         // given
         memberJpaRepository.save(new Member("member1", 16, null));
-        memberJpaRepository.save(new Member("member1", 19, null));
-        memberJpaRepository.save(new Member("member1", 20, null));
-        memberJpaRepository.save(new Member("member1", 21, null));
-        memberJpaRepository.save(new Member("member1", 25, null));
+        memberJpaRepository.save(new Member("member2", 19, null));
+        memberJpaRepository.save(new Member("member3", 20, null));
+        memberJpaRepository.save(new Member("member4", 21, null));
+        memberJpaRepository.save(new Member("member5", 25, null));
 
         // when
         int resultCount = memberJpaRepository.bulkAgePlus(20);
+
+        List<Member> members = memberJpaRepository.findAll();
+        for (Member member : members) {
+            System.out.println("member.getAge = " + member.getAge());
+        }
 
         // then
         assertThat(resultCount).isEqualTo(3);
