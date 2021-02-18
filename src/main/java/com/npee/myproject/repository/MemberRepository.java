@@ -50,4 +50,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Override
     @EntityGraph(attributePaths = {"team"})
     List<Member> findAll();
+
+    @EntityGraph("Member.all")
+    List<Member> getByUsername(@Param("username") String username);
 }

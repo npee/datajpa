@@ -278,7 +278,8 @@ class MemberRepositoryTest {
         em.clear();
 
         // when
-        List<Member> members = memberRepository.findAll();
+        // List<Member> members = memberRepository.findAll();
+        List<Member> members = memberRepository.getByUsername("member1");
 
         // N + 1
         for (Member member : members) {
