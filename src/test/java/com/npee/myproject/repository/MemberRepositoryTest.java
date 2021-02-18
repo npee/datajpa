@@ -278,8 +278,7 @@ class MemberRepositoryTest {
         em.clear();
 
         // when
-        // List<Member> members = memberRepository.findAll();
-        List<Member> members = memberRepository.findMemberFetchJoin();
+        List<Member> members = memberRepository.findAll();
 
         // N + 1
         for (Member member : members) {
