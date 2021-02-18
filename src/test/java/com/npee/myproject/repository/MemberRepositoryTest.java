@@ -299,7 +299,19 @@ class MemberRepositoryTest {
         Member findMember = memberRepository.queryByUsername("member1");
         findMember.setUsername("member2");
 
-        em.flush(); // readOnly이므로 변경감지 일어나지 않음
+        em.flush(); // readOnly이므로 변경감지 일어나지 않
+
+    }
+
+    @Test
+    public void lockTest() {
+        // given
+        Member member1 = memberRepository.save(new Member("member1", 10, null));
+        em.flush();
+        em.clear();
+
+        // when
+        Member findMember = memberRepository.findLockByUsername("member1");
 
     }
 
