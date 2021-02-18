@@ -286,6 +286,20 @@ class MemberRepositoryTest {
             System.out.println("member.getUsername() = " + member.getUsername());
             System.out.println("member.getTeam().getName() = " + member.getTeam().getName());
         }
+    }
+
+    @Test
+    public void queryHint() {
+        // given
+        Member member1 = memberRepository.save(new Member("member1", 10, null));
+        em.flush();
+        em.clear();
+
+        // when
+        Member findMember = memberRepository.queryByUsername("member1");
+        findMember.setUsername("member2");
+
+        em.flush(); // readOnly이므로 변경감지 일어나지 않음
 
     }
 
