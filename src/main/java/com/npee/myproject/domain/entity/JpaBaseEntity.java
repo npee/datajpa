@@ -1,5 +1,6 @@
 package com.npee.myproject.domain.entity;
 
+import lombok.Getter;
 import org.apache.tomcat.jni.Local;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import java.time.LocalDateTime;
 
+@Getter
 @MappedSuperclass
 public class JpaBaseEntity {
 
