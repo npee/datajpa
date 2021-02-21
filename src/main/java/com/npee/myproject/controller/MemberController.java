@@ -3,6 +3,8 @@ package com.npee.myproject.controller;
 import com.npee.myproject.domain.entity.Member;
 import com.npee.myproject.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,8 +28,15 @@ public class MemberController {
         return member.getUsername();
     }
 
+    @GetMapping("/members")
+    public Page<Member> list(Pageable pageable) {
+        return memberRepository.findAll(pageable);
+    }
+
     @PostConstruct
     public void init() {
-        memberRepository.save(new Member("userA"));
+        for (int i = 1; i < 100; i++) {
+            memberRepository.save(new Member("user" + i));
+        }
     }
 }
