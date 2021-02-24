@@ -36,7 +36,7 @@ public class MemberController {
                 .map(MemberTeamDto::new);
     }
 
-    @PostConstruct
+    // @PostConstruct
     public void init() {
         for (int i = 1; i < 100; i++) {
             memberRepository.save(new Member("user" + i, i, null));
