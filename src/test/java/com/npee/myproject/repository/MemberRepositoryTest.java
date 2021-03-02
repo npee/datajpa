@@ -357,7 +357,9 @@ class MemberRepositoryTest {
         // when
         // Probe
         Member member = new Member("m1");
-        Example<Member> example = Example.of(member);
+
+        ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("age");
+        Example<Member> example = Example.of(member, matcher);
 
         List<Member> result = memberRepository.findAll(example);
 
