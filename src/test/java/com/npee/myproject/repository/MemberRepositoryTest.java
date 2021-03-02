@@ -357,6 +357,8 @@ class MemberRepositoryTest {
         // when
         // Probe
         Member member = new Member("m1");
+        Team team = new Team("teamA");
+        member.setTeam(team); // 연관 관계 지정
 
         ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("age");
         Example<Member> example = Example.of(member, matcher);
