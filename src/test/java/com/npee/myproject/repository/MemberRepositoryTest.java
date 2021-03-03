@@ -14,13 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -385,10 +383,10 @@ class MemberRepositoryTest {
         em.clear();
 
         // when
-        List<UserNameOnly> result = memberRepository.findProjectionsByUsername("m1");
+        List<UsernameOnlyDto> result = memberRepository.findProjectionsByUsername("m1");
 
-        for (UserNameOnly userNameOnly : result) {
-            System.out.println("usernameOnly = " + userNameOnly);
+        for (UsernameOnlyDto userNameOnly : result) {
+            System.out.println("usernameOnly = " + userNameOnly.getUsername());
         }
 
 
